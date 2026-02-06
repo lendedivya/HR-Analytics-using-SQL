@@ -1,0 +1,152 @@
+
+HR Analytics – SQL Analysis Explanation
+=====================================
+
+Dataset: People / HR Analytics Dataset
+Tool Used: MySQL
+Purpose: To analyze employee experience, salary, satisfaction, projects, promotion, and attrition.
+
+--------------------------------------------------
+3. Highest Experienced Employee
+--------------------------------------------------
+SQL Query:
+SELECT MAX(time_spend_company) AS highest_experience
+FROM people;
+
+Explanation:
+This query finds the maximum number of years an employee has spent in the company.
+
+--------------------------------------------------
+4. Highest Experienced Department-wise
+--------------------------------------------------
+SQL Query:
+SELECT dept, MAX(time_spend_company) AS highest_experience
+FROM people
+GROUP BY dept;
+
+Explanation:
+This query identifies the most experienced employee in each department.
+
+--------------------------------------------------
+5. Highest Salary Department-wise
+--------------------------------------------------
+SQL Query:
+SELECT dept, salary, COUNT(*) AS employee_count
+FROM people
+GROUP BY dept, salary
+ORDER BY dept;
+
+Explanation:
+This shows salary distribution (low, medium, high) across departments.
+
+--------------------------------------------------
+6. Satisfactory Level Department-wise (Highest & Lowest)
+--------------------------------------------------
+SQL Query:
+SELECT dept,
+       MAX(satisfactoryLevel) AS highest_satisfaction,
+       MIN(satisfactoryLevel) AS lowest_satisfaction
+FROM people
+GROUP BY dept;
+
+Explanation:
+This query compares employee satisfaction levels within each department.
+
+--------------------------------------------------
+7. Department-wise Low Salary
+--------------------------------------------------
+SQL Query:
+SELECT dept, COUNT(*) AS low_salary_employees
+FROM people
+WHERE salary = 'low'
+GROUP BY dept;
+
+Explanation:
+This query counts employees receiving low salary in each department.
+
+--------------------------------------------------
+8. Department-wise Projects
+--------------------------------------------------
+SQL Query:
+SELECT dept, AVG(numberOfProjects) AS avg_projects
+FROM people
+GROUP BY dept;
+
+Explanation:
+This query calculates average number of projects per department.
+
+--------------------------------------------------
+9. Department-wise Last Evaluation
+--------------------------------------------------
+SQL Query:
+SELECT dept, AVG(lastEvaluation) AS avg_last_evaluation
+FROM people
+GROUP BY dept;
+
+Explanation:
+This query shows performance evaluation trends by department.
+
+--------------------------------------------------
+10. Department-wise Employees Left
+--------------------------------------------------
+SQL Query:
+SELECT dept, COUNT(*) AS left_count
+FROM people
+WHERE `left` = 1
+GROUP BY dept;
+
+Explanation:
+This query identifies attrition count department-wise.
+
+--------------------------------------------------
+11. Relationship Analysis (Data Manipulation)
+--------------------------------------------------
+
+a) No. of Projects vs Salary
+SQL Query:
+SELECT numberOfProjects, salary, COUNT(*) AS employee_count
+FROM people
+GROUP BY numberOfProjects, salary;
+
+Explanation:
+Shows how salary levels vary with number of projects.
+
+--------------------------------------------------
+
+b) No. of Projects vs Left
+SQL Query:
+SELECT numberOfProjects, `left`, COUNT(*) AS employee_count
+FROM people
+GROUP BY numberOfProjects, `left`;
+
+Explanation:
+Analyzes attrition based on project workload.
+
+--------------------------------------------------
+
+c) Satisfactory Level vs Number of Projects
+SQL Query:
+SELECT numberOfProjects, AVG(satisfactoryLevel) AS avg_satisfaction
+FROM people
+GROUP BY numberOfProjects;
+
+Explanation:
+Measures how workload impacts employee satisfaction.
+
+--------------------------------------------------
+
+d) Promotion vs Salary
+SQL Query:
+SELECT promotionInLast5years, salary, COUNT(*) AS employee_count
+FROM people
+GROUP BY promotionInLast5years, salary;
+
+Explanation:
+Shows relationship between promotions and salary levels.
+
+--------------------------------------------------
+
+Conclusion:
+Using SQL aggregation, grouping, and filtering, meaningful HR insights were derived. 
+This analysis helps understand employee experience, satisfaction, compensation, and attrition patterns.
+
